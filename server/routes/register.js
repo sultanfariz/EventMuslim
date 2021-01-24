@@ -4,6 +4,16 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User.js");
 const { Op } = require("sequelize");
 
+const docs = require('simple-rest-docs');
+
+const options = {
+  files: ['./register.js'], // glob pattern
+  output: './README.md', //default './DOCUMENT.md'
+  // parsers: []
+}
+
+docs(options);
+
 router.use(express.urlencoded({extended:true}));
 
 router.route("/register")

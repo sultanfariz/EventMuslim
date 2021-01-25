@@ -8,7 +8,7 @@ const Organizer = require("./models/Organizer.js");
 const register = require('./routes/register');
 const login = require('./routes/login');
 const transaction = require('./routes/transaction');
-const routeAcara = require('./routes/route_acara');
+const routeAcara = require('./routes/routeAcara');
 const {
     PORT = 3001, //process.env.PORT || 4500,
     NODE_ENV = 'development',
@@ -22,7 +22,7 @@ db.authenticate().then(() => console.log("successfully connected to database"));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: ["http://localhost:3001"],
+    origin: ["http://localhost:3001", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials:true
 }));

@@ -22,6 +22,7 @@ router.route("/events/:id")
         }
     })
 
+    //insert event belum diedit
 router.route("/events/insert")
     //insert new event
     .post(async (req,res)=>{

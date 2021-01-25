@@ -7,6 +7,7 @@ const Organizer = require("./models/Organizer.js");
 
 const register = require('./routes/register');
 const login = require('./routes/login');
+const transaction = require('./routes/transaction');
 const routeAcara = require('./routes/route_acara');
 const {
     PORT = 3001, //process.env.PORT || 4500,
@@ -38,6 +39,7 @@ app.use(session({
 }));
 app.use(register);
 app.use(login);
+app.use(transaction);
 app.use(routeAcara);
 app.use(async (req, res, next)=>{
     const {userId} = req.session;

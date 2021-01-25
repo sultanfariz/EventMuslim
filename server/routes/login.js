@@ -7,11 +7,11 @@ const { get } = require("./register.js");
 
 router.use(express.urlencoded({extended:true}));
 
-const redirectLogin = (req,res,next)=>{
-    if(!req.session.userId){
-        res.redirect('/login');
-    }else next();
-}
+// const redirectLogin = (req,res,next)=>{
+//     if(!req.session.userId){
+//         res.redirect('/login');
+//     }else next();
+// }
 
 router.route("/login")
     //get user's login status

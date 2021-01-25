@@ -5,8 +5,8 @@ const session = require("express-session");
 const cors = require('cors');
 const User = require("./models/User.js");
 
-const register = require('./routes/register');
-const login = require('./routes/login');
+const user = require('./routes/user')
+const transaction = require('./routes/transaction')
 const {
     PORT = 3001, //process.env.PORT || 4500,
     NODE_ENV = 'development',
@@ -17,6 +17,7 @@ const {
 
 db.authenticate().then(() => console.log("successfully connected to database"));
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
@@ -35,8 +36,8 @@ app.use(session({
         secure: true
     }
 }));
-app.use(register);
-app.use(login);
+app.use(user)
+app.use(transaction)
 app.use(async (req, res, next)=>{
     const {userId} = req.session;
     if(userId){

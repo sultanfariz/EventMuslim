@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const User = require("../models/User.js");
+const User = require("../models/Organizer.js");
 const { Op } = require("sequelize");
 
 const docs = require('simple-rest-docs');

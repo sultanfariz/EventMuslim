@@ -1,22 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User.js");
+const User = require("../models/Organizer.js");
 const bcrypt = require("bcryptjs");
 
-const { get } = require("./register.js");
+// const { get } = require("./register.js");
 
 router.use(express.urlencoded({extended:true}));
 
-const redirectLogin = (req,res,next)=>{
-    if(!req.session.userId){
-        res.redirect('/login');
-    }else next();
-}
+// const redirectLogin = (req,res,next)=>{
+//     if(!req.session.userId){
+//         res.redirect('/login');
+//     }else next();
+// }
+
+router.route("/").get((req,res)=>{
+    // if(req.session)
+    res.send({userId: req.session.userId})
+    // else return 0;
+});
 
 router.route("/login")
     //get user's login status
     .get(async (req,res)=>{
-        if(req.session.user){
+        if(req.session.userId){
             res.send({loggedIn:true, userId: req.session.userId})
         }else{
             res.send({loggedIn:false})
@@ -25,20 +31,20 @@ router.route("/login")
     //user login
     .post( async (req,res)=>{
         try {
-            const {username, password} = req.body;
+            const {email, password} = req.body;
 
-            if(username && password){
+            if(email && password){
                 const getUser = await User.findOne({
-                    where: {username:username}
+                    where: {email:email}
                 });
                 if(!getUser){
-                    return res.status(401).json({message:"Username tidak terdaftar"});
+                    return res.status(401).json({message:"Email tidak terdaftar"});
                 }
                 bcrypt.compare(req.body.password, getUser.password).then(result=>{
                     if(result){
                         req.session.userId = getUser.id;
                         // console.log("berhasil login");
-                        return res.status(200).json({message: "Selamat anda berhasil login", username: username});
+                        return res.status(200).json({message: "Selamat anda berhasil login", email: email});
                     }else{
                         // console.log("gagal login");
                         return res.status(401).json({message: "Password salah !"});
@@ -54,6 +60,7 @@ router.route("/login")
 router.post("/logout", async (req,res)=>{
     req.session.destroy((err)=>{
         // if(err){}
+        // SESS_NAME = "sid";
         res.clearCookie(SESS_NAME);
     })
 })

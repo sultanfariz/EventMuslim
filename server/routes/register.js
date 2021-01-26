@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const User = require("../models/User.js");
+const User = require("../models/Organizer.js");
 const { Op } = require("sequelize");
 
 const docs = require('simple-rest-docs');
@@ -30,26 +30,27 @@ router.route("/register")
     //insert new user
     .post(async (req,res)=>{
         try {
-            const {username, email, namalengkap, password} = req.body;
+            const {email, nama_organizer, nomor_hp, password, instagram, facebook, whatsapp} = req.body;
 
             //validate form
-            if(username && email && namalengkap && password){
+            if(email && nama_organizer && password){
                 //validate existed user
                 const getUser = await User.findOne({
                     where: {
-                        [Op.or]: [{username: username},{email:email}]
+                        // [Op.or]: [{username: username},{email:email}]
+                        email:email
                     }
                 });
                 if(!getUser){
                     await bcrypt.hash(req.body.password, 10).then(async (hash)=>{
                         const newUser =  await new User({
-                            username, email, namalengkap, password: hash
+                            email, nama_organizer, nomor_hp, password: hash, instagram, facebook, whatsapp
                         })
                         await newUser.save();
                         const message = "User successfully inserted!";
                         res.json({newUser, message:message});
                     })
-                }else{throw({message: "username or email existed!"})}
+                }else{throw({message: "email existed!"})}
             }else{throw({message: "please fill the form correctly!"})}
         } catch (err) {
             console.error(err.message);
@@ -76,15 +77,15 @@ router.route("/register/:id")
     //edit user
     .put(async (req,res)=>{
         try {
-            const {username, email, namalengkap, password} = req.body;
+            const {email, nama_organizer, nomor_hp, password, instagram, facebook, whatsapp} = req.body;
             const id = req.params.id;
             
             bcrypt.hash(req.body.password, 10).then(async (hash)=>{
                 const editUser = await User.update({
-                    username, email, namalengkap, password:hash
+                    email, nama_organizer, nomor_hp, password: hash, instagram, facebook, whatsapp
                 },{where: {id:id}});
                 await editUser; 
-                return res.json({editUser:{id, username, email, namalengkap, password:hash}, message:'User successfully edited!'});
+                return res.json({editUser:{id, email, nama_organizer, nomor_hp, password: hash, instagram, facebook, whatsapp}, message:'User successfully edited!'});
             })
 
         } catch (err) {

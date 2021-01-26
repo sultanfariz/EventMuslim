@@ -2,21 +2,14 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/Organizer.js");
 const bcrypt = require("bcryptjs");
-
-// const { get } = require("./register.js");
+const session = require("express-session");
 
 router.use(express.urlencoded({extended:true}));
 
-// const redirectLogin = (req,res,next)=>{
-//     if(!req.session.userId){
-//         res.redirect('/login');
-//     }else next();
-// }
-
 router.route("/").get((req,res)=>{
-    // if(req.session)
-    res.send({userId: req.session.userId})
-    // else return 0;
+    let sess = req.session;
+    console.log('This session has an id of ', sess.id);
+    res.send({userId: sess.id})
 });
 
 router.route("/login")
@@ -59,10 +52,9 @@ router.route("/login")
 
 router.post("/logout", async (req,res)=>{
     req.session.destroy((err)=>{
-        // if(err){}
-        // SESS_NAME = "sid";
-        res.clearCookie(SESS_NAME);
-    })
+            // if(err){}
+            res.clearCookie(req.session);
+        })
 })
 
 module.exports = router;

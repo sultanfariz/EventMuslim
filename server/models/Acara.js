@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db.js');
-const Organizer = require('./Organizer');
 const Transaksi = require('./Transaksi');
 
 const Acara = db.define(
@@ -29,8 +28,6 @@ const Acara = db.define(
     }
 );
 
-// Organizer.hasMany(Acara, {foreignKey: 'fk_id_organizer'});
-// Acara.belongsTo(Organizer, {foreignKey: 'fk_id_organizer'});
-// Acara.hasMany(Transaksi, {foreignKey: 'fk_id_acara'});
+Acara.hasMany(Transaksi, {foreignKey: 'fk_id_acara'});
 
 module.exports = Acara;

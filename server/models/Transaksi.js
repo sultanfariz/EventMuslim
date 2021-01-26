@@ -10,6 +10,7 @@ const Transaksi = db.define(
             autoIncrement:true,
             primaryKey:true
         },
+        order_id:{type:Sequelize.STRING},
         fk_id_acara:{type:Sequelize.INTEGER},
         nama_pembeli:{type:Sequelize.STRING},
         email_pembeli:{type:Sequelize.STRING},
@@ -29,4 +30,4 @@ const Transaksi = db.define(
 // Acara.hasMany(Transaksi, {foreignKey: 'fk_id_acara'});
 // Transaksi.belongsTo(Acara, {foreignKey: 'fk_id_acara'});
 
-module.exports = Acara;
+module.exports = Transaksi;

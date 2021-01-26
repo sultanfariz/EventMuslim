@@ -4,6 +4,7 @@ const db = require('./config/db.js');
 const session = require("express-session");
 const cors = require('cors');
 const Organizer = require("./models/Organizer.js");
+const path = require('path');
 
 const register = require('./routes/register');
 const login = require('./routes/login');
@@ -20,8 +21,13 @@ const {
 
 db.authenticate().then(() => console.log("successfully connected to database"));
 
-app.use(express.urlencoded({ extended: true }));
+/* Just Testing Snap */
+app.set('views', 'views')
+app.set('view engine', 'ejs')
+/* ================= */
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors({
     origin: ["http://localhost:3001", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],

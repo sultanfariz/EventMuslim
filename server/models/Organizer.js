@@ -9,7 +9,10 @@ const Organizer = db.define(
             autoIncrement:true,
             primaryKey:true
         },
-        email:{type:Sequelize.STRING},
+        email:{
+            type:Sequelize.STRING,
+            isEmail:true
+        },
         nama_organizer:{type:Sequelize.STRING},
         nomor_hp:{type:Sequelize.STRING},
         password:{type:Sequelize.STRING},

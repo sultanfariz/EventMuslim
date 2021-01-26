@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const db = require('./config/db.js');
+const db = require('./config/db');
 const session = require("express-session");
 const cors = require('cors');
 const Organizer = require("./models/Organizer.js");

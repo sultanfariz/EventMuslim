@@ -30,10 +30,10 @@ router.route("/register")
     //insert new user
     .post(async (req,res)=>{
         try {
-            const {email, nama_organizer, nomor_hp, password, instagram, facebook, whatsapp} = req.body;
+            const {email, password} = req.body;
 
             //validate form
-            if(email && nama_organizer && password){
+            if(email && password){
                 //validate existed user
                 const getUser = await User.findOne({
                     where: {
@@ -44,7 +44,7 @@ router.route("/register")
                 if(!getUser){
                     await bcrypt.hash(req.body.password, 10).then(async (hash)=>{
                         const newUser =  await new User({
-                            email, nama_organizer, nomor_hp, password: hash, instagram, facebook, whatsapp
+                            email, password: hash
                         })
                         await newUser.save();
                         const message = "User successfully inserted!";

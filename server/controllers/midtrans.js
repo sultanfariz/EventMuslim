@@ -1,5 +1,5 @@
 const snap = require('../service/midtrans')
-const TransactionModel = require('../models/Transaction')
+const TransactionModel = require('../models/Transaksi')
 
 exports.checkout = async (req, res) => {
     try {

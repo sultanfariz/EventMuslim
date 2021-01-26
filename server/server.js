@@ -38,6 +38,8 @@ app.use(session({
         secure: true
     }
 }));
+
+app.use(express.static('upload'));
 app.use(register);
 app.use(login);
 app.use(midtrans);

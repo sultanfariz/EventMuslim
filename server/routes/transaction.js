@@ -6,18 +6,19 @@ const Transaksi = require('../models/Transaksi');
 router.get('/checkout', snap.transaction);
 router.get('/ping', snap.test);
 
-
 //checkout
-router.route("/events/insert")
-    //insert new event
+router.route("/transaction/:id")
+    //create new transaction
     .post(async (req,res)=>{
         try {
-            const {fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, foto_cover, no_rek_organizer, bank_rek_organizer} = req.body;
+            const {nama_pembeli, email_pembeli, nomor_hp_pembeli, tanggal_pembelian, total_pembelian, infaq, fee} = req.body;
+
+            const id_acara = req.params.id;
 
             //validate form
-            if(fk_id_organizer && nama_acara && lokasi && harga && tanggal && tag_acara && deskripsi && foto_cover && no_rek_organizer && bank_rek_organizer){
+            if(id_acara && nama_pembeli && email_pembeli && nomor_hp_pembeli && tanggal_pembelian && total_pembelian && infaq && fee){
                 const newTransaksi =  await new Transaksi({
-                    fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, foto_cover, no_rek_organizer, bank_rek_organizer
+                    fk_id_acara: id_acara, nama_pembeli, email_pembeli, nomor_hp_pembeli, tanggal_pembelian, total_pembelian, infaq, fee
                 })
                 await newTransaksi.save();
                 const message = "Transaction successfully inserted!";

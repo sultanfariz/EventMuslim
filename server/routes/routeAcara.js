@@ -3,6 +3,7 @@ const router = express.Router();
 const Acara = require("../models/Acara");
 const Organizer = require("../models/Organizer.js");
 const { Op } = require("sequelize");
+const upload = require("./photosMiddleware");
 
 router.use(express.urlencoded({extended:true}));
 
@@ -24,9 +25,12 @@ router.route("/events/:id")
     //insert event belum diedit
 router.route("/events/insert")
     //insert new event
-    .post(async (req,res)=>{
+    .post(upload.single('foto_cover'), async (req,res)=>{
         try {
-            const {fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, foto_cover, no_rek_organizer, bank_rek_organizer} = req.body;
+            const {fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer} = req.body;
+
+            const foto_cover = req.file.path;
+
             //validate form
             if(fk_id_organizer && nama_acara && lokasi && harga && tanggal && tag_acara && deskripsi && foto_cover && no_rek_organizer && bank_rek_organizer){
                 const newAcara =  await new Acara({

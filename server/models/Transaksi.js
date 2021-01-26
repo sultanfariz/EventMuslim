@@ -8,6 +8,7 @@ const Transaksi = db.define(
             autoIncrement:true,
             primaryKey:true
         },
+        order_id:{type:Sequelize.STRING},
         fk_id_acara:{type:Sequelize.INTEGER},
         nama_pembeli:{type:Sequelize.STRING},
         email_pembeli:{type:Sequelize.STRING},
@@ -23,6 +24,5 @@ const Transaksi = db.define(
         freezeTableName:true
     }
 );
-
 
 module.exports = Transaksi;

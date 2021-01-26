@@ -7,7 +7,7 @@ const User = require("./models/User.js");
 
 const register = require('./routes/register');
 const login = require('./routes/login');
-const transaction = require('./routes/transaction');
+const midtrans = require('./routes/midtrans');
 const {
     PORT = 3001, //process.env.PORT || 4500,
     NODE_ENV = 'development',
@@ -38,7 +38,7 @@ app.use(session({
 }));
 app.use(register);
 app.use(login);
-app.use(transaction);
+app.use(midtrans);
 app.use(async (req, res, next)=>{
     const {userId} = req.session;
     if(userId){

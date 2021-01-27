@@ -28,6 +28,6 @@ const Acara = db.define(
     }
 );
 
-Acara.hasMany(Transaksi, {foreignKey: 'fk_id_acara'});
+// Acara.hasMany(Transaksi, {foreignKey: 'fk_id_acara'});
 
 module.exports = Acara;

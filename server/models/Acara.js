@@ -15,7 +15,7 @@ const Acara = db.define(
         harga:{type:Sequelize.BIGINT},
         tanggal:{type:Sequelize.DATE},
         tag_acara:{type:Sequelize.STRING},
-        deskripsi:{type:Sequelize.STRING},
+        deskripsi:{type:Sequelize.STRING(1024)},
         foto_cover:{type:Sequelize.STRING},
         no_rek_organizer:{type:Sequelize.STRING},
         bank_rek_organizer:{type:Sequelize.STRING},

@@ -1,6 +1,5 @@
 const snap = require('../service/midtrans')
 const TransactionModel = require('../models/Transaksi')
-const { param } = require('../routes/login')
 
 exports.checkout = async (req, res) => {
     const  {

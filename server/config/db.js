@@ -1,9 +1,9 @@
-const sequelize = require("sequelize");
+const sequelize = require('sequelize')
 
-const db = new sequelize("eventmuslim","root","",{
-    dialect: "mysql"
-});
+const db = new sequelize('eventmuslim', 'root', '', {
+  dialect: 'mysql',
+})
 
-db.sync({});
+db.sync({})
 
-module.exports = db;
+module.exports = db

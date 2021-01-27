@@ -7,6 +7,7 @@ import Footer from '../components/layouts/Footer'
 
 const DetailsEvent = (props) => {
   const { className: style } = props
+  const handleMidtrans = (e) => {}
   return (
     <Layout>
       <header className={`shadow-md relative z-auto`}>
@@ -122,7 +123,9 @@ const DetailsEvent = (props) => {
                     <h6 className={`text-base mr-20`}>Total :</h6>
                     <h1 className={`font-bold text-3xl`}>Rp 11.200</h1>
                   </div>
-                  <button className={`rounded py-3 px-6 bg-green-400 text-white`}>Pembayaran</button>
+                  <button onClick={handleMidtrans} className={`rounded py-3 px-6 bg-green-400 text-white`}>
+                    Pembayaran
+                  </button>
                 </div>
               </form>
             </div>

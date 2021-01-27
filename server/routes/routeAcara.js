@@ -7,7 +7,19 @@ const upload = require("./photosMiddleware");
 
 router.use(express.urlencoded({extended:true}));
 
-router.route("/events/:id")
+router.route("/events")
+    //get all events data
+    .get(async (req,res)=>{
+        try {
+            const getAllAcara = res.json(await Acara.findAll({}));
+
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).json(err);
+        }
+    })
+    
+    router.route("/events/:id")
     //search events by id
     .get(async (req,res)=>{
         try {
@@ -21,6 +33,24 @@ router.route("/events/:id")
             res.status(500).json(err);
         }
     })
+    
+router.route("/events/:judul")
+    //search all events by judul
+    .get(async (req,res)=>{
+        try {
+            const judul = req.params.judul;
+            const getAllAcara = res.json(await Acara.findAll({
+                where:{
+                    [Op.iLike]: '%'+judul+'%'
+                }
+            }));
+
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).json(err);
+        }
+    })
+
 
     //insert event belum diedit
 router.route("/events/insert")

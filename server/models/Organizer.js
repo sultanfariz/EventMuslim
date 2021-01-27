@@ -26,6 +26,6 @@ const Organizer = db.define(
     }
 );
 
-Organizer.hasMany(Acara, {foreignKey: 'fk_id_organizer'});
+// Organizer.hasMany(Acara, {foreignKey: 'fk_id_organizer'});
 
 module.exports = Organizer;

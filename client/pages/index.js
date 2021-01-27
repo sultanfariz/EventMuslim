@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Head from 'next/head'
 import CardEvent from '../components/CardEvent'
 import CardOrganizer from '../components/CardOrganizer'
 import Container from '../components/layouts/Container'

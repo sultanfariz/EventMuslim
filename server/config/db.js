@@ -1,9 +1,14 @@
-const sequelize = require("sequelize");
+const sequelize = require('sequelize')
 
-const db = new sequelize("eventmuslim","root","",{
-    dialect: "mysql"
-});
+// const db = new sequelize('eventmuslim', 'root', '', {
+//   dialect: 'mysql',
+// })
 
-db.sync({});
+// Uuks DB
+const db = new sequelize('eventmuslim', 'nufik', 'rahasia2012', {
+  dialect: 'mysql',
+})
 
-module.exports = db;
+db.sync({})
+
+module.exports = db

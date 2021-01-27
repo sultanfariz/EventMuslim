@@ -1,14 +1,69 @@
 import React from 'react'
 import Link from 'next/link'
+import Head from 'next/head'
 import Container from '../components/layouts/Container'
 import Layout from '../components/layouts/Layout'
 import Navigation from '../components/Navigation'
 import Footer from '../components/layouts/Footer'
+import axios from 'axios'
 
 const DetailsEvent = (props) => {
-  const { className: style } = props
+  const { className: style, initialData } = props
+  const [data, setData] = React.useState(initialData)
+  const fetchData = async () => {
+    await axios
+      .post('http://localhost:3001/checkout', {
+        nama_pembeli: 'Ihsan uuk',
+        email_pembeli: 'uuks@gmail.com',
+        nomor_hp_pembeli: '085612349876',
+        fk_id_acara: 8,
+        organizer: 'nomindart',
+        jumlah: 2,
+        namaAcara: 'Muslim Hackfest',
+        harga: 10000,
+        fee: 1200,
+        infaq: 0,
+        total_pembelian: 11200,
+        state: false,
+      })
+      .then(
+        await function (response) {
+          setData(response.data)
+        }
+      )
+      .catch(
+        await function (error) {
+          console.log(error)
+        }
+      )
+  }
+  const handleMidtrans = async (e) => {
+    e.preventDefault()
+    fetchData()
+    console.log(data.token)
+    console.log(data.clientKey)
+  }
+  React.useEffect(() => {
+    if (data.token === undefined) return
+    snap.pay(data.token, {
+      onSuccess: function (result) {
+        console.log('SUCCESS', result)
+        alert('Payment accepted \r\n' + JSON.stringify(result))
+      },
+      onPending: function (result) {
+        console.log('Payment pending', result)
+        alert('Payment pending \r\n' + JSON.stringify(result))
+      },
+      onError: function () {
+        console.log('Payment error')
+      },
+    })
+  }, [data.token])
   return (
     <Layout>
+      <Head>
+        <script type='text/javascript' src='https://app.sandbox.midtrans.com/snap/snap.js' data-client-key={data.clientKey} />
+      </Head>
       <header className={`shadow-md relative z-auto`}>
         <Container>
           <Navigation className={`flex justify-between items-center`}>
@@ -122,7 +177,9 @@ const DetailsEvent = (props) => {
                     <h6 className={`text-base mr-20`}>Total :</h6>
                     <h1 className={`font-bold text-3xl`}>Rp 11.200</h1>
                   </div>
-                  <button className={`rounded py-3 px-6 bg-green-400 text-white`}>Pembayaran</button>
+                  <button onClick={handleMidtrans} className={`rounded py-3 px-6 bg-green-400 text-white`}>
+                    Pembayaran
+                  </button>
                 </div>
               </form>
             </div>
@@ -136,6 +193,36 @@ const DetailsEvent = (props) => {
       </footer>
     </Layout>
   )
+}
+
+DetailsEvent.getInitialProps = async () => {
+  let data = {}
+  const req = axios
+    .post('http://localhost:3001/checkout', {
+      nama_pembeli: 'Ihsan Firdaus',
+      email_pembeli: 'ihsanfirdaus16@gmail.com',
+      nomor_hp_pembeli: '085612349876',
+      fk_id_acara: 8,
+      organizer: 'nomindart',
+      jumlah: 2,
+      namaAcara: 'Muslim Hackfest',
+      harga: 10000,
+      fee: 1200,
+      infaq: 0,
+      total_pembelian: 11200,
+      state: false,
+    })
+    .then(
+      await function (response) {
+        data = response.data
+      }
+    )
+    .catch(async function (error) {
+      console.log(error)
+    })
+  return {
+    initialData: data,
+  }
 }
 
 export default DetailsEvent

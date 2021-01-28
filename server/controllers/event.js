@@ -42,14 +42,14 @@ exports.search = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const {fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer} = req.body;
+        const {nama_organizer, fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer} = req.body;
 
         // const foto_cover = req.file.path;
 
         //validate form
-        if(fk_id_organizer && nama_acara && lokasi && harga && tanggal && tag_acara && deskripsi && no_rek_organizer && bank_rek_organizer){
+        if(nama_organizer && fk_id_organizer && nama_acara && lokasi && harga && tanggal && tag_acara && deskripsi && no_rek_organizer && bank_rek_organizer){
             const newEvent =  await new EventModel({
-                fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer
+                nama_organizer, fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer
             })
             await newEvent.save();
             const message = "Event successfully created!";

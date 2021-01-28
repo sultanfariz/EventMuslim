@@ -38,11 +38,14 @@
         snap.pay(token, {
           onSuccess: function(result) {
             console.log("SUCCESS", result);
-            alert("Payment accepted \r\n"+JSON.stringify(result));
+            // alert("Payment accepted \r\n"+JSON.stringify(result));
           },
           onPending: function(result) {
             console.log("Payment pending", result);
-            alert("Payment pending \r\n"+JSON.stringify(result));
+            // alert("Payment pending \r\n"+JSON.stringify(result));
+            if (result.pdf_url) {
+              window.location.replace(result.pdf_url)
+            }   
           },
           onError: function() {
             console.log("Payment error");

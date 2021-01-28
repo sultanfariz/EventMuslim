@@ -10,6 +10,7 @@ const Acara = db.define(
             primaryKey:true
         },
         fk_id_organizer:{type:Sequelize.INTEGER},
+        nama_organizer:{type:Sequelize.STRING},
         nama_acara:{type:Sequelize.STRING},
         lokasi:{type:Sequelize.STRING},
         harga:{type:Sequelize.BIGINT},

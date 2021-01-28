@@ -6,10 +6,9 @@ const cors = require('cors');
 const Organizer = require("./models/Organizer.js");
 const path = require('path');
 
-const register = require('./routes/register');
-const login = require('./routes/login');
 const midtrans = require('./routes/midtrans');
-const routeAcara = require('./routes/routeAcara');
+const event = require('./routes/event');
+const organizer = require('./routes/organizer')
 
 const {
     PORT = 3001, //process.env.PORT || 4500,
@@ -46,11 +45,9 @@ app.use(session({
 }));
 
 app.use('/upload', express.static('upload'));
-app.use(register);
-app.use(login);
 app.use(midtrans);
-app.use(routeAcara);
-
+app.use(organizer);
+app.use(event)
 app.use(async (req, res, next)=>{
     const {userId} = req.session;
     if(userId){

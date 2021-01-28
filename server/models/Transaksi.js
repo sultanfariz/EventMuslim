@@ -13,11 +13,10 @@ const Transaksi = db.define(
         nama_pembeli:{type:Sequelize.STRING},
         email_pembeli:{type:Sequelize.STRING},
         nomor_hp_pembeli:{type:Sequelize.STRING},
-        tanggal_pembelian:{type:Sequelize.DATE},
+        tanggal_pembelian:{type:Sequelize.STRING},
         total_pembelian:{type:Sequelize.BIGINT},
         infaq:{type:Sequelize.BIGINT},
         fee:{type:Sequelize.BIGINT},
-        verifikasi_midtrans:{type:Sequelize.BOOLEAN},
         state:{type:Sequelize.BOOLEAN}
     },
     {

@@ -284,7 +284,7 @@ const DetailsEvent = (props) => {
 
 export async function getServerSideProps({ params }) {
   let dataEvent = {}
-  const fetchData = await axios.get(`http://localhost:3001/events/${params.id_checkout}`).then(function (res) {
+  const fetchData = await axios.get(`http://localhost:3001/event/${params.id_checkout}`).then(function (res) {
     dataEvent = res.data
   })
   return {

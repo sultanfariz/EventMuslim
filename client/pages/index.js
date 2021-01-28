@@ -37,9 +37,10 @@ const initTabItems = [
 ]
 const Home = (props) => {
   const { data, dataOrganizer } = props
-  React.useEffect(() => {
-    console.log(dataOrganizer)
-  }, [])
+  // React.useEffect(() => {
+  //   console.log(data)
+  //   console.log(dataOrganizer)
+  // }, [])
   const [tabItems, setTabItems] = React.useState(initTabItems)
   const [activeEvents, setActiveEvents] = React.useState(data)
   const handleTabItems = (el) => {
@@ -90,9 +91,11 @@ const Home = (props) => {
                 <option value='organizer'> Organizer</option>
               </select> */}
               <h6 className={`mr-8`}>Bantuan</h6>
-              <a className={`bg-green-400 rounded py-2 px-4 box-border inline-block text-white`} type='submit'>
-                Daftar Akun
-              </a>
+              <Link href='/signup'>
+                <a className={`bg-green-400 rounded py-2 px-4 box-border inline-block text-white cursor-pointer`} type='submit'>
+                  Daftar Akun
+                </a>
+              </Link>
             </div>
           </Navigation>
         </Container>
@@ -140,7 +143,7 @@ const Home = (props) => {
                   <Link href='/events/[id_details]' as={`/events/${event.id}`} passHref>
                     <CardEvent
                       className={`mr-4 mt-4`}
-                      imgSrc={`/images/pictures/${event.foto_cover}.png`}
+                      imgSrc={`/images/pictures/event_akad.png`}
                       title={event.nama_acara}
                       date={event.tanggal}
                       place={event.lokasi}
@@ -161,10 +164,9 @@ const Home = (props) => {
               <h1 className={`font-bold text-2xl`}>Organizer Unggulan</h1>
             </div>
             <div className={`flex flex-wrap`}>
-              <CardOrganizer className={`mr-3`} imgSrc='/images/pictures/organizer01.png' title='Pemuda Hijrah' />
-              <CardOrganizer className={`mr-3`} imgSrc='/images/pictures/organizer01.png' title='Pemuda Hijrah' />
-              <CardOrganizer className={`mr-3`} imgSrc='/images/pictures/organizer01.png' title='Pemuda Hijrah' />
-              <CardOrganizer imgSrc='/images/pictures/organizer01.png' title='Pemuda Hijrah' />
+              {dataOrganizer.map((organizer) => {
+                return <CardOrganizer key={organizer.id} className={`mr-3`} imgSrc='/images/pictures/organizer01.png' title={organizer.nama_organizer} />
+              })}
             </div>
           </section>
         </main>
@@ -181,16 +183,16 @@ const Home = (props) => {
 export async function getStaticProps() {
   let data = {}
   let dataOrganizer = {}
-  const fetchData = await axios.get('http://localhost:3001/events/').then(function (res) {
+  const fetchData = await axios.get('http://localhost:3001/event').then(function (res) {
     data = res.data
   })
-  // const fetchDataOrganizer = await axios.get('http://localhost:3001/users/').then(function (res) {
-  //   dataOrganizer = res.data
-  // })
+  const fetchDataOrganizer = await axios.get('http://localhost:3001/organizer').then(function (res) {
+    dataOrganizer = res.data
+  })
   return {
     props: {
       data,
-      // dataOrganizer,
+      dataOrganizer,
     },
   }
 }

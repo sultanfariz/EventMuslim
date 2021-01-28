@@ -1,18 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import Container from '../../components/layouts/Container'
+import Footer from '../../components/layouts/Footer'
 import Layout from '../../components/layouts/Layout'
 import Navigation from '../../components/Navigation'
-import Footer from '../../components/layouts/Footer'
-import CardDetailsEvent from '../../components/CardDetailsEvent'
-import CardCheckoutEvent from '../../components/CardCheckoutEvent'
 import axios from 'axios'
 
-const DetailsEvent = (props) => {
-  const { className: style, data } = props
-  // React.useEffect(() => {
-  //   console.log(data)
-  // }, [])
+const Dashboard = (props) => {
+  const { className: style } = props
+  const router = useRouter()
+  const { email } = router.query
+  React.useEffect(() => {
+    console.log(email)
+  }, [])
   return (
     <Layout>
       <header className={`shadow-md relative z-auto`}>
@@ -40,33 +42,14 @@ const DetailsEvent = (props) => {
                 <option value='organizer'> Organizer</option>
               </select> */}
               <h6 className={`mr-8`}>Bantuan</h6>
-              <a className={`bg-green-400 rounded py-2 px-4 box-border inline-block text-white`} type='submit'>
-                Daftar Akun
-              </a>
+              <h6>{email}</h6>
             </div>
           </Navigation>
         </Container>
       </header>
       <main>
         <Container>
-          <section className={`flex`}>
-            <CardDetailsEvent
-              className={` w-3/4 mr-4`}
-              description={data.deskripsi}
-              tagEvents={data.tag_acara}
-              imgSrc={`/images/pictures/${data.foto_cover}.png`}
-            />
-            {/* <Link href='/events/[id_checkout]' as={`/events/${id}`} passHref> */}
-            <CardCheckoutEvent
-              className={`w-64 flex-1`}
-              idEventCheckout={data.id}
-              title={data.nama_acara}
-              price={data.harga}
-              date={data.tanggal}
-              place={data.lokasi}
-            />
-            {/* </Link> */}
-          </section>
+          <h1>Dashboard Hello</h1>
         </Container>
       </main>
       <footer className={`bg-green-400 mt-20`}>
@@ -78,16 +61,4 @@ const DetailsEvent = (props) => {
   )
 }
 
-export async function getServerSideProps({ params }) {
-  let data = {}
-  const fetchData = await axios.get(`http://localhost:3001/event/${params.id_details}`).then(function (res) {
-    data = res.data
-  })
-  return {
-    props: {
-      data,
-    },
-  }
-}
-
-export default DetailsEvent
+export default Dashboard

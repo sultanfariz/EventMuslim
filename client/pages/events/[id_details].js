@@ -1,14 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
-import Container from '../components/layouts/Container'
-import Layout from '../components/layouts/Layout'
-import Navigation from '../components/Navigation'
-import Footer from '../components/layouts/Footer'
-import CardDetailsEvent from '../components/CardDetailsEvent'
-import CardCheckoutEvent from '../components/CardCheckoutEvent'
+import Container from '../../components/layouts/Container'
+import Layout from '../../components/layouts/Layout'
+import Navigation from '../../components/Navigation'
+import Footer from '../../components/layouts/Footer'
+import CardDetailsEvent from '../../components/CardDetailsEvent'
+import CardCheckoutEvent from '../../components/CardCheckoutEvent'
+import axios from 'axios'
 
 const DetailsEvent = (props) => {
-  const { className: style } = props
+  const { className: style, data } = props
+  React.useEffect(() => {
+    console.log(data)
+  }, [])
   return (
     <Layout>
       <header className={`shadow-md relative z-auto`}>
@@ -46,10 +50,15 @@ const DetailsEvent = (props) => {
       <main>
         <Container>
           <section className={`flex`}>
-            <CardDetailsEvent className={`w-3/4 mr-7`} />
-            <Link href='/checkout-event' passHref>
-              <CardCheckoutEvent />
-            </Link>
+            <CardDetailsEvent
+              description={data.deskripsi}
+              tagEvents={data.tag_acara}
+              imgSrc={`/images/pictures/${data.foto_cover}.png`}
+              className={`w-3/4 mr-7`}
+            />
+            {/* <Link href='/events/[id_checkout]' as={`/events/${id}`} passHref> */}
+            <CardCheckoutEvent idEventCheckout={data.id} title={data.nama_acara} price={data.harga} date={data.tanggal} place={data.lokasi} />
+            {/* </Link> */}
           </section>
         </Container>
       </main>
@@ -60,6 +69,18 @@ const DetailsEvent = (props) => {
       </footer>
     </Layout>
   )
+}
+
+export async function getServerSideProps({ params }) {
+  let data = {}
+  const fetchData = await axios.get(`http://localhost:3001/events/${params.id_details}`).then(function (res) {
+    data = res.data
+  })
+  return {
+    props: {
+      data,
+    },
+  }
 }
 
 export default DetailsEvent

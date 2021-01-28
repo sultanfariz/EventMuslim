@@ -1,31 +1,22 @@
 import React from 'react'
 
 const CardDetailsEvent = (props) => {
-  const { className: style, imgSrc, description } = props
+  const { className: style, imgSrc, description, tagEvents } = props
   return (
     <div className={`rounded-lg overflow-hidden shadow-2xl ${style}`}>
       {/* Banner */}
       <div>
-        <img className={`w-full`} src='/images/pictures/img01.png' alt='Banner' />
+        <img className={`w-full`} src={imgSrc} alt='Banner' />
       </div>
       <div className={`p-7`}>
         {/* Details */}
         <div>
           <h1 className={`mb-6 font-bold text-3xl`}>Tentang Acara</h1>
-          <p className={`text-base`}>
-            Muslim Hackfest merupakan festival dan hackathon muslim virtual pertama di Indonesia. <br /> <br /> Terdapat tiga mata acara dalam Muslim Hackfest
-            yaitu 1) Open Source Online Discussion membahas project keumatan yang open source sehingga dapat dikembangkan secara kolaborasi (10 Jan
-            2021)[daftar], 2) Hackathon ajang inovasi dan pembuatan solusi digital untuk permasalahan umat Islam di Indonesia (23-31 Jan 2021) dan 3) Grand
-            Webinar dengan tema Kolaborasi Teknologi Untuk Kemaslahatan Umat (23, 24 & 31 Jan 2021). Mari menjalin relasi, berkolaborasi dan berlomba dalam
-            kebaikan dengan para inovator muslim dari seluruh Indonesia dengan mengikuti Hackathon Muslim Hackfest. Dapatkan juga inspirasi dan bekal untuk
-            mengoptimalkan kebermanfaatan dari pemateri nasional dan internasional dalam rangkaian sesi Grand Webinar. <br /> <br /> Acara ini terbuka untuk
-            umum dan GRATIS!. Daftar sekarang dan sebarkan kabar baik ini ke sahabat muslim lainnya! <br /> <br /> Diselenggarakan oleh OpenUmma, serta didukung
-            oleh Kahf dan Rumah Amal Salman.
-          </p>
+          <p className={`text-base`}>{description}</p>
           <div className={`my-8`}>
             <h1 className={`font-bold text-3xl mb-6`}>Jenis Acara</h1>
             <div className={`py-2 px-6 bg-green-200 table rounded-lg mt-3`}>
-              <h1>Lomba</h1>
+              <h1>{tagEvents}</h1>
             </div>
           </div>
         </div>

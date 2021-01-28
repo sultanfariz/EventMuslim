@@ -7,8 +7,13 @@ import Container from '../components/layouts/Container'
 import Footer from '../components/layouts/Footer'
 import Layout from '../components/layouts/Layout'
 import Navigation from '../components/Navigation'
+import axios from 'axios'
 
-const Home = () => {
+const Home = ({ data }) => {
+  // const { data } = props
+  // React.useEffect(() => {
+  //   console.log(data)
+  // }, [data])
   return (
     <Layout className={`//bg-gray-300`}>
       <header className={`shadow-md relative z-auto`}>
@@ -76,56 +81,20 @@ const Home = () => {
               </ul>
             </div>
             <div className={`mt-10 flex flex-wrap`}>
-              <Link href='/details-event' passHref>
-                <CardEvent
-                  className={`mr-4 mt-4`}
-                  imgSrc='/images/pictures/img01.png'
-                  title='Muslim Hackfest'
-                  date='5 Februari, 13.00 WIB'
-                  place='Online'
-                  price='Rp 10.000'
-                />
-              </Link>
-              <Link href='/details-event' passHref>
-                <CardEvent
-                  className={`mr-4 mt-4`}
-                  imgSrc='/images/pictures/img01.png'
-                  title='Muslim Hackfest'
-                  date='5 Februari, 13.00 WIB'
-                  place='Online'
-                  price='Rp 10.000'
-                />
-              </Link>
-              <Link href='/details-event' passHref>
-                <CardEvent
-                  className={`mr-4 mt-4`}
-                  imgSrc='/images/pictures/img01.png'
-                  title='Muslim Hackfest'
-                  date='5 Februari, 13.00 WIB'
-                  place='Online'
-                  price='Rp 10.000'
-                />
-              </Link>
-              <Link href='/details-event' passHref>
-                <CardEvent
-                  className={`mr-4 mt-4`}
-                  imgSrc='/images/pictures/img01.png'
-                  title='Muslim Hackfest'
-                  date='5 Februari, 13.00 WIB'
-                  place='Online'
-                  price='Rp 10.000'
-                />
-              </Link>
-              <Link href='/details-event' passHref>
-                <CardEvent
-                  className={`mr-4 mt-4`}
-                  imgSrc='/images/pictures/img01.png'
-                  title='Muslim Hackfest'
-                  date='5 Februari, 13.00 WIB'
-                  place='Online'
-                  price='Rp 10.000'
-                />
-              </Link>
+              {data.map((event) => (
+                <div key={event.id}>
+                  <Link href='/events/[id_details]' as={`/events/${event.id}`} passHref>
+                    <CardEvent
+                      className={`mr-4 mt-4`}
+                      imgSrc={`/images/pictures/${event.foto_cover}.png`}
+                      title={event.nama_acara}
+                      date={event.tanggal}
+                      place={event.lokasi}
+                      price={event.harga}
+                    />
+                  </Link>
+                </div>
+              ))}
             </div>
             <div className={`mt-16`}>
               <button className={`block mx-auto bg-white border-2 py-2 px-6 rounded-md border-green-400 text-green-400`}>Lihat Semua</button>
@@ -151,6 +120,18 @@ const Home = () => {
       </footer>
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  let data = {}
+  const fetchData = await axios.get('http://localhost:3001/events/').then(function (res) {
+    data = res.data
+  })
+  return {
+    props: {
+      data,
+    },
+  }
 }
 
 export default Home

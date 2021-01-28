@@ -14,7 +14,7 @@ const CardCheckoutEvent = React.forwardRef((props, ref) => {
         <div>
           <div className={`mb-4`}>
             <h6 className={`text-gray-500 text-base`}>Tanggal :</h6>
-            <h6 className={`text-xl`}>{date}</h6>
+            <h6 className={`text-base`}>{date}</h6>
           </div>
           <div>
             <h6 className={`text-gray-500 text-base`}>Lokasi :</h6>

@@ -9,11 +9,60 @@ import Layout from '../components/layouts/Layout'
 import Navigation from '../components/Navigation'
 import axios from 'axios'
 
-const Home = ({ data }) => {
-  // const { data } = props
-  // React.useEffect(() => {
-  //   console.log(data)
-  // }, [data])
+const initTabItems = [
+  {
+    name: 'All',
+    state: true,
+  },
+  {
+    name: 'Hari ini',
+    state: false,
+  },
+  {
+    name: 'Kajian',
+    state: false,
+  },
+  {
+    name: 'Lomba',
+    state: false,
+  },
+  {
+    name: 'Seminar',
+    state: false,
+  },
+  {
+    name: 'Workshop',
+    state: false,
+  },
+]
+const Home = (props) => {
+  const { data, dataOrganizer } = props
+  React.useEffect(() => {
+    console.log(dataOrganizer)
+  }, [])
+  const [tabItems, setTabItems] = React.useState(initTabItems)
+  const [activeEvents, setActiveEvents] = React.useState(data)
+  const handleTabItems = (el) => {
+    setActiveEvents(el.name)
+    const newItems = []
+    tabItems.forEach((item) => {
+      if (item.name === el.name) {
+        newItems.push({
+          name: item.name,
+          state: true,
+        })
+        return
+      }
+      newItems.push({
+        name: item.name,
+        state: false,
+      })
+    })
+    const newEvents = data.filter((event) => event.tag_acara === el.name || el.name === 'All')
+    setActiveEvents(newEvents)
+    setTabItems(newItems)
+  }
+
   return (
     <Layout className={`//bg-gray-300`}>
       <header className={`shadow-md relative z-auto`}>
@@ -72,16 +121,21 @@ const Home = ({ data }) => {
             </div>
             <div>
               <ul className={`flex items-center mb-7`}>
-                <li className={`cursor-pointer mr-9 underline text-green-400`}>All</li>
-                <li className={`cursor-pointer mr-9`}>Hari ini</li>
-                <li className={`cursor-pointer mr-9`}>Kajian</li>
-                <li className={`cursor-pointer mr-9`}>Lomba</li>
-                <li className={`cursor-pointer mr-9`}>Seminar</li>
-                <li className={`cursor-pointer`}>Workshop</li>
+                {tabItems.map((item) => {
+                  return (
+                    <li
+                      key={item.name}
+                      onClick={() => handleTabItems(item)}
+                      className={`cursor-pointer mr-9 ${item.state ? 'underline text-green-400' : null}`}
+                    >
+                      {item.name}
+                    </li>
+                  )
+                })}
               </ul>
             </div>
             <div className={`mt-10 flex flex-wrap`}>
-              {data.map((event) => (
+              {activeEvents.map((event) => (
                 <div key={event.id}>
                   <Link href='/events/[id_details]' as={`/events/${event.id}`} passHref>
                     <CardEvent
@@ -90,15 +144,17 @@ const Home = ({ data }) => {
                       title={event.nama_acara}
                       date={event.tanggal}
                       place={event.lokasi}
-                      price={event.harga}
+                      price={event.harga ? `Rp ${event.harga}` : 'Gratis'}
                     />
                   </Link>
                 </div>
               ))}
             </div>
-            <div className={`mt-16`}>
-              <button className={`block mx-auto bg-white border-2 py-2 px-6 rounded-md border-green-400 text-green-400`}>Lihat Semua</button>
-            </div>
+            {activeEvents.length ? null : ( // </div> //   <button className={`block mx-auto bg-white border-2 py-2 px-6 rounded-md border-green-400 text-green-400`}>Lihat Semua</button> // <div className={`mt-16`}>
+              <div className={`mt-16`}>
+                <button className={`block mx-auto bg-white py-2 px-6 rounded-md  text-gray-400`}>Acara tidak ditemukan</button>
+              </div>
+            )}
           </section>
           <section className={`mt-32`}>
             <div className={`mb-8`}>
@@ -124,12 +180,17 @@ const Home = ({ data }) => {
 
 export async function getStaticProps() {
   let data = {}
+  let dataOrganizer = {}
   const fetchData = await axios.get('http://localhost:3001/events/').then(function (res) {
     data = res.data
   })
+  // const fetchDataOrganizer = await axios.get('http://localhost:3001/users/').then(function (res) {
+  //   dataOrganizer = res.data
+  // })
   return {
     props: {
       data,
+      // dataOrganizer,
     },
   }
 }

@@ -10,7 +10,7 @@ const CardEvent = React.forwardRef((props, ref) => {
       <div className={`px-3 py-6`}>
         <h1 className={`font-bold text-xl mb-2`}>{title}</h1>
         <h6 className={`text-base`}>{date}</h6>
-        <h6 className={`text-base text-gray-600`}>{place}</h6>
+        <h6 className={`text-base text-gray-600 truncate`}>{place}</h6>
         <h1 className={`text-base text-green-400 mt-3 font-bold`}>{price}</h1>
       </div>
     </div>

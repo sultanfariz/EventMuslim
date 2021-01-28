@@ -10,9 +10,9 @@ import axios from 'axios'
 
 const DetailsEvent = (props) => {
   const { className: style, data } = props
-  React.useEffect(() => {
-    console.log(data)
-  }, [])
+  // React.useEffect(() => {
+  //   console.log(data)
+  // }, [])
   return (
     <Layout>
       <header className={`shadow-md relative z-auto`}>
@@ -51,13 +51,20 @@ const DetailsEvent = (props) => {
         <Container>
           <section className={`flex`}>
             <CardDetailsEvent
+              className={` w-3/4 mr-4`}
               description={data.deskripsi}
               tagEvents={data.tag_acara}
               imgSrc={`/images/pictures/${data.foto_cover}.png`}
-              className={`w-3/4 mr-7`}
             />
             {/* <Link href='/events/[id_checkout]' as={`/events/${id}`} passHref> */}
-            <CardCheckoutEvent idEventCheckout={data.id} title={data.nama_acara} price={data.harga} date={data.tanggal} place={data.lokasi} />
+            <CardCheckoutEvent
+              className={`w-64 flex-1`}
+              idEventCheckout={data.id}
+              title={data.nama_acara}
+              price={data.harga}
+              date={data.tanggal}
+              place={data.lokasi}
+            />
             {/* </Link> */}
           </section>
         </Container>

@@ -14,7 +14,8 @@ const DetailsEvent = (props) => {
   const [emailPribadi, setEmailPribadi] = React.useState('')
   const [noHandphone, setNoHandphone] = React.useState('')
   const [infaq, setInfaq] = React.useState(0)
-  const [totalHarga, setTotalHarga] = React.useState(dataEvent.harga + 1200)
+  const [fee, setFee] = React.useState(1200)
+  const [totalHarga, setTotalHarga] = React.useState(dataEvent.harga + fee)
   const fetchData = async () => {
     await axios
       .post('http://localhost:3001/checkout', {
@@ -26,7 +27,7 @@ const DetailsEvent = (props) => {
         jumlah: 1,
         namaAcara: dataEvent.nama_acara,
         harga: dataEvent.harga,
-        fee: 1200,
+        fee: fee,
         infaq: infaq,
         total_pembelian: parseInt(totalHarga),
         state: false,
@@ -44,6 +45,18 @@ const DetailsEvent = (props) => {
   }
   const handleMidtrans = async (e) => {
     e.preventDefault()
+    if (namaPembeli === '') {
+      alert('Masukan Nama Pembeli')
+      return
+    }
+    if (emailPribadi === '') {
+      alert('Masukan Email Pribadi')
+      return
+    }
+    if (noHandphone === '') {
+      alert('Masukan No Handphone')
+      return
+    }
     fetchData()
     console.log(data.token)
     console.log(data.clientKey)
@@ -62,16 +75,19 @@ const DetailsEvent = (props) => {
       },
     })
   }, [data.token])
+  // React.useEffect(() => {
+  //   console.log(dataEvent)
+  // }, [])
   React.useEffect(() => {
-    console.log(dataEvent)
-  }, [])
-  React.useEffect(() => {
+    if (!dataEvent.harga) {
+      setFee(0)
+    }
     if (infaq === '' || infaq === '0') {
-      setTotalHarga(dataEvent.harga + 1200)
+      setTotalHarga(dataEvent.harga + fee)
       return
     }
-    setTotalHarga(dataEvent.harga + parseInt(infaq) + 1200)
-  }, [infaq])
+    setTotalHarga(dataEvent.harga + parseInt(infaq) + fee)
+  }, [infaq, fee])
   return (
     <Layout>
       <Head>
@@ -131,9 +147,10 @@ const DetailsEvent = (props) => {
                   Nama Lengkap Pembeli <span className={`text-yellow-500`}>*</span>
                 </h1>
                 <input
+                  required
                   onChange={(e) => setNamaPembeli(e.target.value)}
                   value={namaPembeli}
-                  className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200`}
+                  className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200 focus:outline-none focus:border-2 focus:border-green-400`}
                   type='text'
                   placeholder='Masukkan nama lengkap pembeli'
                 />
@@ -143,9 +160,10 @@ const DetailsEvent = (props) => {
                   Email Pribadi <span className={`text-yellow-500`}>*</span>
                 </h1>
                 <input
+                  required
                   onChange={(e) => setEmailPribadi(e.target.value)}
                   value={emailPribadi}
-                  className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200`}
+                  className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200 focus:outline-none focus:border-2 focus:border-green-400`}
                   type='email'
                   placeholder='Masukkan email pembeli'
                 />
@@ -155,9 +173,10 @@ const DetailsEvent = (props) => {
                   Nama Handphone Pembeli <span className={`text-yellow-500`}>*</span>
                 </h1>
                 <input
+                  required
                   onChange={(e) => setNoHandphone(e.target.value)}
                   value={noHandphone}
-                  className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200`}
+                  className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200 focus:outline-none focus:border-2 focus:border-green-400`}
                   type='text'
                   placeholder='Masukkan nama lengkap pembeli'
                 />
@@ -187,7 +206,7 @@ const DetailsEvent = (props) => {
                 </div>
                 <div>
                   <h1 className={`mb-5 font-bold`}>Fee/Unit</h1>
-                  <h6>Rp 1200</h6>
+                  <h6>Rp {fee}</h6>
                 </div>
                 <div>
                   <h1 className={`mb-5 font-bold`}>Sub Total</h1>
@@ -201,9 +220,10 @@ const DetailsEvent = (props) => {
                 <div className={`flex items-center mt-5`}>
                   <h1 className={`font-medium text-lg mr-4`}>Rp</h1>
                   <input
+                    required
                     onChange={(e) => setInfaq(e.target.value)}
                     value={infaq}
-                    className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200`}
+                    className={`py-2 w-full px-4 text-lg rounded border-2 border-gray-200 focus:outline-none focus:border-2 focus:border-green-400`}
                     type='number'
                     placeholder='Masukkan nominal'
                   />

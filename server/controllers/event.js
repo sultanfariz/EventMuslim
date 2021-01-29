@@ -1,6 +1,6 @@
 const EventModel = require('../models/Acara')
 const { Op } = require('sequelize')
-const upload = require('../routes/photosMiddleware');
+const path = require('path')
 
 exports.index = async (req, res) => {
     try {
@@ -44,12 +44,12 @@ exports.create = async (req, res) => {
     try {
         const {nama_organizer, fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer} = req.body;
 
-        // const foto_cover = req.file.path;
+        const foto_cover = req.file.path
 
         //validate form
-        if(nama_organizer && fk_id_organizer && nama_acara && lokasi && harga && tanggal && tag_acara && deskripsi && no_rek_organizer && bank_rek_organizer){
+        if(nama_organizer && fk_id_organizer && nama_acara && lokasi && harga && tanggal && foto_cover && tag_acara && deskripsi && no_rek_organizer && bank_rek_organizer){
             const newEvent =  await new EventModel({
-                nama_organizer, fk_id_organizer, nama_acara, lokasi, harga, tanggal, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer
+                nama_organizer, fk_id_organizer, nama_acara, lokasi, harga, tanggal, foto_cover, tag_acara, deskripsi, no_rek_organizer, bank_rek_organizer
             })
             await newEvent.save();
             const message = "Event successfully created!";

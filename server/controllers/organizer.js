@@ -14,10 +14,10 @@ docs(options)
 // MIGRASI REGISTER //
 exports.register = async (req, res) => {
     try {
-        const {email, password} = req.body;
+        const {email, password, nama_organizer} = req.body;
 
         //validate form
-        if(email && password){
+        if(email && password && nama_organizer){
             //validate existed user
             const getOrganizer = await OrganizerModel.findOne({
                 where: {
@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
             if(!getOrganizer){
                 await bcrypt.hash(req.body.password, 10).then(async (hash)=>{
                     const newOrganizer =  await new OrganizerModel({
-                        email, password: hash
+                        nama_organizer, email, password: hash
                     })
                     await newOrganizer.save();
                     const message = "Organizer successfully registered!";

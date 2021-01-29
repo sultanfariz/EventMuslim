@@ -21,3 +21,9 @@ Berikut langkah-langkah cara berkontribusi serta instalasi untuk _develop websit
 4. _Delete_ terlebih dahulu ```node_modules``` (jika ada), lalu _delete_ semua _'lock' files_. Contohnya ```yarn.lock``` atau ```package-lock.json```
 5. Lakukan instalasi dengan cara  ```npm install``` atau ```sudo npm install``` (Linux) di folder yang di-clone
 6. Selesai, lalu jalankan aplikasi dengan cara ```npm start``` atau ```sudo npm start``` (Linux)
+
+## Figma
+Link : https://www.figma.com/file/4Z8HSUkRHB4B4zqnyVrJWu/Muslim-Hackfest?node-id=166%3A1001
+
+## Dokumentasi API
+Link : 

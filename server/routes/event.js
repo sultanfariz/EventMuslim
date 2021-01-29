@@ -1,7 +1,8 @@
 const { Router } = require('express')
 const route = Router()
 const event = require('../controllers/event')
-const upload = require('./photosMiddleware');
+const MulterStorage = require('../service/multer')
+const upload = MulterStorage('event')
 
 route.get('/event', event.index)
 route.get('/event/:id', event.show)

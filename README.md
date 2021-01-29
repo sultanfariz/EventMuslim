@@ -3,9 +3,9 @@ Event Muslim adalah _sebuah platfrom_ yang memberikan kemudahan kepada peserta s
 
 ## Melakukan Kontribusi
 Next.js adalah _framework_ yang bisa berjalan atas banyak _dependencies_ seperti React, Babel, ESLint, Jest, Webpack, dan lain-lain.
-_Dependencies_ tersebut terkumpul pada satu folder yaitu folder ```node_modules```, sehingga yang harus kita lakukan ketika meng-clone suatu repositori React dari GitHub harus meng-install dependencies-nya.
+_Dependencies_ tersebut terkumpul pada satu folder yaitu folder ```node_modules```, sehingga yang harus kita lakukan ketika meng-clone suatu repositori Event Muslim dari GitHub harus meng-install dependencies-nya.
 <br/><br/>
-Berikut langkah-langkah cara berkontribusi serta instalasi untuk _develop website_ WomenUp!
+Berikut langkah-langkah cara berkontribusi serta instalasi untuk _develop website_ Event Muslim!
 
 1. ```git clone [repository url]```
 2. ```cd [local repository]```

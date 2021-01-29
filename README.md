@@ -26,4 +26,4 @@ Berikut langkah-langkah cara berkontribusi serta instalasi untuk _develop websit
 Link : https://www.figma.com/file/4Z8HSUkRHB4B4zqnyVrJWu/Muslim-Hackfest?node-id=166%3A1001
 
 ## Dokumentasi API
-Link : 
+Link : https://documenter.getpostman.com/view/12164238/TW6wKpJj

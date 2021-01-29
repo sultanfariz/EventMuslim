@@ -9,6 +9,24 @@ import axios from 'axios'
 
 const Login = (props) => {
   const { className: style } = props
+  const [email, setEmail] = React.useState('')
+  const [namaLengkap, setNamaLengkap] = React.useState('')
+  const [namaPassword, setPassword] = React.useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await axios
+    .post('http://localhost:3001/organizer/register/', {
+      email: email,
+      password: password,
+    })
+    .then(function (res) {
+      console.log(res)
+      Router.push(`/dashboard/${res.data.email}`)
+    })
+    .catch(function (err) {
+      alert('Wrong password or email')
+      console.log(err)
+    })  }
   return (
     <Layout>
       <header className={`shadow-md relative z-auto`}>

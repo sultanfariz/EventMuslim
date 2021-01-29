@@ -6,6 +6,7 @@ import Container from '../../components/layouts/Container'
 import Footer from '../../components/layouts/Footer'
 import Layout from '../../components/layouts/Layout'
 import Navigation from '../../components/Navigation'
+import CardEventDashboard from '../../components/CardEventDashboard'
 import axios from 'axios'
 
 const Dashboard = (props) => {
@@ -48,9 +49,35 @@ const Dashboard = (props) => {
         </Container>
       </header>
       <main>
-        <Container>
-          <h1>Dashboard Hello</h1>
-        </Container>
+        <div className={`bg-green-50`}>
+          <Container className={`bg-green-50`}>
+            <div className={`py-6`}>
+              <h1 className={`text-center font-bold text-4xl mb-8`}>Account Profile</h1>
+              <h1 className={`text-center font-bold text-2xl mb-4`}>Muslim Hackfest</h1>
+              <h6 className={`text-center text-base`}>Indonesia's First Virtual Muslim Hackathon</h6>
+            </div>
+          </Container>
+        </div>
+        <div className={`mt-9`}>
+          <Container>
+            <div>
+              <h1 className={`text-center border-b-4 border-gray-200 w-40 mx-auto pb-4`}>Acaraku</h1>
+            </div>
+            <div>
+              <div>
+                <h1 className={`font-bold text-3xl mb-6`}>Acaraku</h1>
+              </div>
+              <div className={`flex justify-end items-center`}>
+                <button className={`rounded-md py-2 w-32 block bg-green-400 text-white`} type='button'>
+                  Buat Acara
+                </button>
+              </div>
+              <div className={`mt-11`}>
+                <CardEventDashboard />
+              </div>
+            </div>
+          </Container>
+        </div>
       </main>
       <footer className={`bg-green-400 mt-20`}>
         <Container className={`bg-green-400`}>

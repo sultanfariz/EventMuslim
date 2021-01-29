@@ -19,7 +19,7 @@ exports.checkout = async (req, res) => {
     
     const parameter = {
         'transaction_details': {
-            'order_id': `${namaAcara}-no-`+Math.round((new Date()).getTime() / 1000),// req.body.order_id,
+            'order_id': `${namaAcara}-no-`+Math.round((new Date()).getTime() / 1000),
             'gross_amount': total_pembelian
         },
         'customer_details': {

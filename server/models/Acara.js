@@ -17,7 +17,7 @@ const Acara = db.define(
         tanggal:{type:Sequelize.STRING},
         tag_acara:{type:Sequelize.STRING},
         deskripsi:{type:Sequelize.STRING(1024)},
-        // foto_cover:{type:Sequelize.STRING, allowNull: true},
+        foto_cover:{type:Sequelize.STRING, allowNull: true},
         no_rek_organizer:{type:Sequelize.STRING},
         bank_rek_organizer:{type:Sequelize.STRING},
         status_acara:{type:Sequelize.BOOLEAN},

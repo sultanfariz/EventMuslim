@@ -68,9 +68,11 @@ const Dashboard = (props) => {
                 <h1 className={`font-bold text-3xl mb-6`}>Acaraku</h1>
               </div>
               <div className={`flex justify-end items-center`}>
-                <button className={`rounded-md py-2 w-32 block bg-green-400 text-white`} type='button'>
-                  Buat Acara
-                </button>
+                <Link href='/create-acara'>
+                  <button className={`rounded-md py-2 w-32 block bg-green-400 text-white`} type='button'>
+                    Buat Acara
+                  </button>
+                </Link>
               </div>
               <div className={`mt-11`}>
                 <CardEventDashboard />

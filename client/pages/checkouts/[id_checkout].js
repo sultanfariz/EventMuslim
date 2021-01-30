@@ -6,9 +6,11 @@ import Layout from '../../components/layouts/Layout'
 import Navigation from '../../components/Navigation'
 import Footer from '../../components/layouts/Footer'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const DetailsEvent = (props) => {
   const { className: style, dataEvent } = props
+  const router = useRouter()
   const [data, setData] = React.useState('')
   const [namaPembeli, setNamaPembeli] = React.useState('')
   const [emailPribadi, setEmailPribadi] = React.useState('')
@@ -66,9 +68,11 @@ const DetailsEvent = (props) => {
     snap.pay(data.token, {
       onSuccess: function (result) {
         console.log('SNAP SUCCESS', result)
+        console.log(router)
       },
       onPending: function (result) {
-        console.log('SNAP Payment pending', result)
+        // console.log('SNAP Payment pending', result)
+        window.location.replace(result.pdf_url)
       },
       onError: function () {
         console.log('SNAP Payment error')
@@ -197,7 +201,7 @@ const DetailsEvent = (props) => {
                   <h6>1</h6>
                 </div>
                 <div>
-                  <h1 className={`mb-5 font-bold`}>Jmlh</h1>
+                  <h1 className={`mb-5 font-bold`}>Nama Acara</h1>
                   <h6>{dataEvent.nama_acara}</h6>
                 </div>
                 <div>
